@@ -14,7 +14,8 @@ from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -36,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # My Apps:
-    'apps.main',
+    'Applications.accounts',
+    'Applications.mainpage',
+    'Applications.trading',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,7 @@ ROOT_URLCONF = 'mg_ubuntu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,8 +72,9 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mg_ubuntu.wsgi.application'
+AUTH_USER_MODEL = "accounts.CustomUser"
 
+WSGI_APPLICATION = 'mg_ubuntu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -78,10 +82,10 @@ WSGI_APPLICATION = 'mg_ubuntu.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mg-ubuntu', 
-        'USER': 'mg-ubuntu_admin', 
+        'NAME': 'mg-ubuntu',
+        'USER': 'mg-ubuntu_admin',
         'PASSWORD': 'Nascar21!',
-        'HOST': '127.0.0.1', 
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -127,7 +131,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'static'),
     ]
 else:
-        STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
@@ -135,3 +139,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SESSION_COOKIE_AGE = 600  # 10 minutes. "1209600(2 weeks)" by default
+
+SESSION_SAVE_EVERY_REQUEST = True  # "False" by default

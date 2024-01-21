@@ -1,0 +1,15 @@
+<!--Center content homepage-->
+
+{% extends 'mainpage/mainpage.html' %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<div>
+    <h3>Welcome, Select a Webapp</h3>
+</div>
+{% else %}
+<h1>Please Log In!</h1>
+{% endif %}
+
+{% endblock content %}

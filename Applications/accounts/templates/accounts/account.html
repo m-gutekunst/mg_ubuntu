@@ -1,0 +1,43 @@
+{% extends 'mainpage/mainpage.html' %}
+
+{% block content %}
+
+{% include 'accounts/include/account_css.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="w-25 mx-auto">
+            <form class="form-signin" method="POST">{% csrf_token %}
+                <h3 class="mb-3 font-weight-normal">Update Account Info:</h3>
+                <input type="text" name="first_name" id="inputFirstName" class="form-control " placeholder="First Name"
+                    required value="{{account_form.initial.first_name}}">
+                <input type="text" name="last_name" id="inputLastName" class="form-control " placeholder="Last Name"
+                    required value="{{account_form.initial.last_name}}">
+
+                {% for field in account_form %}
+                {% for error in field.errors %}
+                <p style="color: red;">{{error}}</p>
+                {% endfor %}
+                {% endfor %}
+
+                {% if account_form.non_field_errors %}
+                <div style="color:red;">
+                    <p>{{account_form.non_field_errors}}</p>
+                </div>
+                {% endif %}
+
+                {% if success_message %}
+                <p style="color:green; text-align: center; ">{{success_message}}</p>
+                {% endif %}
+
+                <button class="w-100 btn btn-outline-dark" type="submit">Update Info</button>
+            </form>
+            <div class="d-flex flex-column">
+                <a class="m-auto mb-3" href="{% url 'password_change' %}">Change Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

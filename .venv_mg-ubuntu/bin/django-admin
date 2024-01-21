@@ -1,4 +1,4 @@
-#!/home/mgutekunst/django_projects/mg_ubuntu/.venv_mg-ubuntu/bin/python3
+#!/home/mgutekunst/django_projects/mg_ubuntu/.venv_mg-ubuntu/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
